@@ -1,39 +1,72 @@
-import DL10n from "./l10n-service";
-import {DL10N_GETTERS} from "./l10n-store-module";
+import DL10nInstance from './l10n-service';
+import { DL10N_ACTIONS, DL10N_GETTERS } from './l10n-store-module';
 
 export default {
     data() {
         return {
-            $dL10n: DL10n
-        }
+            /**
+             * Class of localization
+             */
+            $dL10n: DL10nInstance,
+        };
     },
     methods: {
-        getDL10nByName(name) {
-            if (this.$langL10n) {
-                return this.$dL10n[name];
+        /**
+         * Method for getting message for current language
+         * @param name {String} - code of message
+         * @returns {{}|*}
+         */
+        getDL10nNameByCode(name) {
+            if (this.$currentLang) {
+                return this.$dL10n[`$${name}`];
             }
             return {};
-        }
+        },
+
+        /**
+         * Setter language code to storage
+         * @param lang {String} - language code
+         */
+        setDL10nLang(lang) {
+            this.$store.dispatch(DL10N_ACTIONS.set, lang);
+        },
+
+        /**
+         * Getter language code from storage
+         * @returns {String} - language code
+         */
+        getDL10nLang() {
+            return this.$store.getters[DL10N_GETTERS.get];
+        },
     },
     computed: {
-        $langL10n() {
+        /**
+         * Current language in vuex storage
+         */
+        $currentLang() {
             if (!this.$store) {
                 return null;
             }
             return this.$store.getters[DL10N_GETTERS.get];
-        }
+        },
     },
     watch: {
-        $langL10n(val) {
-            if (!!val) {
-                this.$dL10n.reloadLang(val);
+        /**
+         * Watcher for reloading messages when changed language
+         */
+        $currentLang(val) {
+            if (val) {
+                this.$dL10n.loadLang(val);
             }
-        }
+        },
     },
     created() {
-        if (this.$dL10n.lang !== this.$langL10n) {
-            this.$dL10n.reloadLang(this.$langL10n);
+        if (!this.$dL10n) {
+            this.$dL10n = DL10nInstance;
         }
-    }
+        if (this.$dL10n.lang !== this.$currentLang) {
+            this.$dL10n.loadLang(this.$currentLang);
+        }
+    },
 
-}
+};

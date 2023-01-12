@@ -1,32 +1,32 @@
-import Vue from "vue";
+import Vue from 'vue';
 
 const state = {
-    lang: null
+    lang: null,
 };
 
 const getters = {
-    getLang: state => state.lang,
+    getLang: (st) => st.lang,
 };
 
 const mutations = {
-    SET_LANG(state, val) {
-        Vue.set(state, 'lang', val);
-    }
+    SET_LANG(st, val) {
+        Vue.set(st, 'lang', val);
+    },
 };
 
 const actions = {
-    setLang({commit}, val) {
+    setLang({ commit }, val) {
         commit('SET_LANG', val);
-    }
+    },
 };
 
-export const STORE_MODULE_NAME = "dl10nStore";
+export const STORE_MODULE_NAME = 'dl10nStore';
 
 export const DL10N_ACTIONS = {
-    set: `${STORE_MODULE_NAME}/setLang`
+    set: `${STORE_MODULE_NAME}/setLang`,
 };
 export const DL10N_GETTERS = {
-    get: `${STORE_MODULE_NAME}/getLang`
+    get: `${STORE_MODULE_NAME}/getLang`,
 };
 
 export default {
@@ -34,6 +34,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
-}
-
+    actions,
+};
