@@ -12,7 +12,7 @@ export function useDL10n() {
     }
 
     function getDL10nLang() {
-        return vueInstance.getDL10nLang(lang);
+        return vueInstance.getDL10nLang();
     }
 
     return {
