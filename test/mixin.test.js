@@ -1,4 +1,4 @@
-import {createLocalVue, shallowMount} from "@vue/test-utils";
+import {mount} from "@vue/test-utils";
 import l10nMixin from '../src/l10n-mixin.js';
 import Vuex from "vuex";
 import l10nStore, {DL10N_ACTIONS, DL10N_GETTERS, STORE_MODULE_NAME} from "../src/l10n-store-module";
@@ -6,8 +6,10 @@ import {DL10n, DL10nInstance} from "../src";
 
 describe("mixin tests", () => {
 
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
+    // const App = {
+    // }
+    // const localVue = mount(App);
+    // localVue.use(Vuex);
 
     const store = new Vuex.Store({
         modules: {
@@ -36,14 +38,15 @@ describe("mixin tests", () => {
         render() {
         }
     };
-    const wrapper = shallowMount(Component, {
-        mixins: [l10nMixin],
-        store: store,
-        localVue: localVue
+    const wrapper = mount(Component, {
+        global: {
+            plugins: [store],
+            mixins: [l10nMixin],
+        }
     });
 
     test("mixin data test", () => {
-        expect(wrapper.vm.$dL10n).toBeInstanceOf(DL10n);
+        expect(wrapper.vm.dL10n).toBeInstanceOf(DL10n);
     });
 
     test("mixin computed $currentLang test", () => {

@@ -1,6 +1,6 @@
 import L10nMixin from './l10n-mixin';
 import Dl10n from './l10n-service';
-import dl10nStoreModule, { STORE_MODULE_NAME } from './l10n-store-module';
+import dl10nStoreModule, {STORE_MODULE_NAME} from './l10n-store-module';
 
 export default {
     /**
