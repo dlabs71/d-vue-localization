@@ -7,7 +7,7 @@ export default {
             /**
              * Class of localization
              */
-            $dL10n: DL10nInstance,
+            dL10n: DL10nInstance
         };
     },
     methods: {
@@ -18,7 +18,7 @@ export default {
          */
         getDL10nNameByCode(name) {
             if (this.$currentLang) {
-                return this.$dL10n[`$${name}`];
+                return this.dL10n[`$${name}`];
             }
             return {};
         },
@@ -56,16 +56,16 @@ export default {
          */
         $currentLang(val) {
             if (val) {
-                this.$dL10n.loadLang(val);
+                this.dL10n.loadLang(val);
             }
         },
     },
     created() {
-        if (!this.$dL10n) {
-            this.$dL10n = DL10nInstance;
+        if (!this.dL10n) {
+            this.dL10n = DL10nInstance;
         }
-        if (this.$dL10n.lang !== this.$currentLang) {
-            this.$dL10n.loadLang(this.$currentLang);
+        if (this.dL10n.lang !== this.$currentLang) {
+            this.dL10n.loadLang(this.$currentLang);
         }
     },
 

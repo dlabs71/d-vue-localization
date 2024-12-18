@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 const state = {
     lang: null,
 };
@@ -10,12 +8,12 @@ const getters = {
 
 const mutations = {
     SET_LANG(st, val) {
-        Vue.set(st, 'lang', val);
+        st.lang = val;
     },
 };
 
 const actions = {
-    setLang({ commit }, val) {
+    setLang({commit}, val) {
         commit('SET_LANG', val);
     },
 };
